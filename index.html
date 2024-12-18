@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Random Quotes Generator</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #f0f0f0;
+      }
+      .container {
+        background-color: white;
+        border-radius: 10px;
+        padding: 30px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        max-width: 500px;
+        width: 90%;
+      }
+      #quote {
+        font-size: 1.5em;
+        margin-bottom: 20px;
+        font-style: italic;
+      }
+      #author {
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+      .buttons {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+      }
+      button {
+        background-color: #4caf50;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 5px;
+        flex: 1;
+      }
+      button:hover {
+        background-color: #45a049;
+      }
+      @media screen and (max-width: 600px) {
+        .container {
+          max-width: none;
+          width: 100%;
+          padding: 20px;
+        }
+        #quote {
+          font-size: 1.2em;
+          margin-bottom: 10px;
+        }
+        #author {
+          font-size: 1em;
+          margin-bottom: 10px;
+        }
+        .buttons {
+          flex-direction: column;
+        }
+        button {
+          width: 100%;
+          margin-bottom: 10px;
+        }
+        button:last-child {
+          margin-bottom: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div id="quote">Click "New Quote" to Start</div>
+      <div id="author"></div>
+      <div class="buttons">
+        <button onclick="generateQuote()">New Quote</button>
+        <button onclick="shareOnTwitter()">Share on Twitter</button>
+      </div>
+    </div>
+
+    <script>
+      const quotes = [
+        {
+          quote:
+            "The greatest glory in living lies not in never falling, but in rising every time we fall.",
+          author: "Confucius",
+        },
+        {
+          quote: "You miss 100% of the shots you don’t take.",
+          author: "Wayne Gretzky",
+        },
+        {
+          quote: "The only way to do great work is to love what you do.",
+          author: "Steve Jobs",
+        },
+        {
+          quote: "The only true wisdom is in knowing you know nothing.",
+          author: "Socrates",
+        },
+        {
+          quote: "The way to get started is to quit talking and begin doing.",
+          author: "Walt Disney",
+        },
+      ];
+      const moreQuotes = [
+        {
+          quote: "In the middle of every difficulty lies opportunity.",
+          author: "Albert Einstein",
+        },
+        {
+          quote: "Life is what happens when you're busy making other plans.",
+          author: "John Lennon",
+        },
+        {
+          quote: "Do what you can, with what you have, where you are.",
+          author: "Theodore Roosevelt",
+        },
+        {
+          quote:
+            "Success is not final, failure is not fatal: It is the courage to continue that counts.",
+          author: "Winston Churchill",
+        },
+        {
+          quote:
+            "Happiness is not something ready-made. It comes from your own actions.",
+          author: "Dalai Lama",
+        },
+        {
+          quote:
+            "If you want to go fast, go alone. If you want to go far, go together.",
+          author: "African Proverb",
+        },
+        {
+          quote:
+            "The only limit to our realization of tomorrow is our doubts of today.",
+          author: "Franklin D. Roosevelt",
+        },
+        {
+          quote:
+            "Do not dwell in the past, do not dream of the future, concentrate the mind on the present moment.",
+          author: "Buddha",
+        },
+        {
+          quote:
+            "It does not matter how slowly you go as long as you do not stop.",
+          author: "Confucius",
+        },
+        {
+          quote:
+            "What you get by achieving your goals is not as important as what you become by achieving your goals.",
+          author: "Zig Ziglar",
+        },
+        {
+          quote:
+            "Life isn’t about finding yourself. Life is about creating yourself.",
+          author: "George Bernard Shaw",
+        },
+        {
+          quote:
+            "The future belongs to those who believe in the beauty of their dreams.",
+          author: "Eleanor Roosevelt",
+        },
+        {
+          quote: "You must be the change you wish to see in the world.",
+          author: "Mahatma Gandhi",
+        },
+        {
+          quote: "It always seems impossible until it’s done.",
+          author: "Nelson Mandela",
+        },
+        {
+          quote: "Turn your wounds into wisdom.",
+          author: "Oprah Winfrey",
+        },
+        {
+          quote:
+            "Do not go where the path may lead, go instead where there is no path and leave a trail.",
+          author: "Ralph Waldo Emerson",
+        },
+        {
+          quote:
+            "Whether you think you can or you think you can’t, you’re right.",
+          author: "Henry Ford",
+        },
+        {
+          quote:
+            "Success usually comes to those who are too busy to be looking for it.",
+          author: "Henry David Thoreau",
+        },
+        {
+          quote:
+            "Your time is limited, don’t waste it living someone else’s life.",
+          author: "Steve Jobs",
+        },
+        {
+          quote: "Don’t count the days, make the days count.",
+          author: "Muhammad Ali",
+        },
+      ];
+
+      // Merge the new quotes with my existing quotes array
+      quotes.push(...moreQuotes);
+
+      function generateQuote() {
+        const randomIndex = Math.floor(Math.random() * quotes.length);
+        const selectedQuote = quotes[randomIndex];
+        document.getElementById("quote").textContent = selectedQuote.quote;
+        document.getElementById("author").textContent = selectedQuote.author;
+      }
+
+      function shareOnTwitter() {
+        const quote = document.getElementById("quote").textContent;
+        const author = document.getElementById("author").textContent;
+
+        const twitterURL = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+          `"${quote}" - ${author}`
+        )}`;
+        window.open(twitterURL, "_blank");
+      }
+
+      generateQuote();
+    </script>
+  </body>
+</html>
